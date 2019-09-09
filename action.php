@@ -15,6 +15,8 @@ if(!$Bericht || !$Datum  || !$Nachname || !$Vorname){
     die("Du hast eins der Felder vergessen auszufüllen!");
 }
 
+Ich bin ein neuer commit
+
 $servername = "localhost";
 $username = "Pascal";
 $password = "Pascalstanley03";
