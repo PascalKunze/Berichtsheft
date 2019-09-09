@@ -1,0 +1,21 @@
+h2{
+    color: red;
+    background-color: black;
+}
+
+textarea {
+    caret-color: red;
+    width: 60em;
+    height: 15em;
+    border: 1px solid #cccccc;
+    padding: 0.5em;
+    font-family: Tahoma, sans-serif;
+}
+textarea:focus {
+    background: #FFC;
+}
+
+
+body {
+    background-color: tan;
+}
