@@ -1,31 +1,12 @@
+<?php
+ini_set('display_errors',true);
+require_once "action.php"
+?>
 <html>
 	<head>
         <link rel="stylesheet" href="berichtsheft_css.css">
     </head>
     <body>
-    <h2>Azubi Berichte</h2>
-    <table style="width:100%">
-        <tr>
-            <th>Mitarbeiter ID</th>
-            <th>Datum</th>
-            <th>Bericht</th>
-        </tr>
-        <tr>
-            <td>test</td>
-            <td>test</td>
-            <td>test</td>
-        </tr>
-        <tr>
-            <td>test2</td>
-            <td>test2</td>
-            <td>test2</td>
-        </tr>
-    </table>
-
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
 
     <h2>Azubi Berichtsheft</h2>
 
@@ -36,17 +17,23 @@
     <br><br>
     Datum (JJJJ.MM.TT):<br><input type="text" name="Datum">
     <br><br>
-    <!--Mitarbeitder ID:<br><input type="text" name="ma_id"  >
-    <br><br-->
+
     Bericht: <br><textarea name="Bericht" rows="5" cols="40"></textarea>
     <br><br>
-    <input type="submit" name="save" value="Speichern">
-    <input type="submit" name="update" value="update" onclick="deleteFunction()">
-    <input type="submit" name="delete" value="loeschen">
+    <input type="submit" name="save" value="Speichern" onclick="createEintrag" >
+    <input type="submit" name="update" value="Update" >
+    <input type="submit" name="delete" value="Löschen">
 </form>
 
 
 
+    <h2>Azubi Berichte</h2>
+
+
+    <?php
+    echo getBerichtsheftEinträgeAsTable();
+
+    ?>
 
 
 
