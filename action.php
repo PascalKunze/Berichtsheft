@@ -3,12 +3,14 @@
 ini_set('display_errors', true);
 ini_set('default_charset', 'UTF-8');
 
+
 if (!empty($_POST['Nachname'])) {
     $Nachname = $_POST['Nachname'];
     $Bericht = $_POST['Bericht'];
     $Datum = $_POST['Datum'];
     $Vorname = $_POST['Vorname'];
-    $Bericht_tbl = $_POST['Bericht_tbl'];
+    $Bericht = $_POST['Bericht'];
+
     if (!$Bericht || !$Datum || !$Nachname || !$Vorname) {
         die("Du hast eins der Felder vergessen auszufüllen!");
     }
@@ -41,12 +43,11 @@ function getBerichtsheftEinträgeAsTable()
         echo "<table border='1px solid black;'>";
         echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th> <th>actions</th></tr>";
         while ($row = $result_table->fetch_assoc()) {
-
             echo "<tr>
                     <td> " . $row["mitarbeiter_id"] . "</td>
                     <td>" . $row["Datum"] . "</td>
                     <form action='action.php' method='post'>
-                      <td><input type='text' name='Bericht_tbl' value= " . $row["Bericht"] . "> </td> <td>
+                      <td><input type='text' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> <td>
 
                           <input type='hidden' name='id' value='" . $row["id"] . "'>
                           <input type='submit' name='action' value='Update' >
@@ -86,9 +87,8 @@ function createConnection()
 
 
 //fetch mitarbeiter_ID with given Vor- and Nachname
-function fetchMAID()
+function fetchMAID($con)
 {
-    $con = createConnection();
     $MA_ID = "SELECT id FROM tbl_Mitarbeiter where Vorname = '" . $_POST['Vorname'] . "' and Nachname ='" . $_POST['Nachname'] . "'";
     $result_maid = mysqli_query($con, $MA_ID);
     $maid = $result_maid->fetch_assoc();
@@ -100,9 +100,8 @@ function fetchMAID()
 // create a entry with given mitarbeiter id, date and report and save it into tbl_Berichte
 function createEintrag()
 {
-    $maid = fetchMAID();
-
     $con = createConnection();
+    $maid = fetchMAID($con);
     $eintrag = "INSERT INTO tbl_Berichte (mitarbeiter_id, Bericht, Datum) 
     VALUES ( '" . $maid['id'] . "','" . $_POST['Bericht'] . "','" . $_POST['Datum'] . "')";
 
@@ -114,17 +113,12 @@ function createEintrag()
     if ($eintragen == true) {
 
         echo "Dein Bericht wurde gespeichert.";
-        die();
-
 
     } else {
+
         echo "Dein Bericht wurde nicht gespeichert.";
-        die();
+
     }
-
-
-    die();
-
 
     closeConnection($con);;
 }
@@ -143,14 +137,12 @@ function deleteEintrag()
     if ($deleten == true) {
 
         echo "Dein Bericht wurde gelöscht.";
-        die();
-
 
     } else {
+
         echo "Dein Bericht wurde nicht gelöscht";
-        die();
+
     }
-    die();
 
 
     closeConnection($con);;
@@ -160,27 +152,15 @@ function deleteEintrag()
 
 function updateEintrag()
 {
-
     $con = createConnection();
-
     $update = "UPDATE tbl_Berichte SET Bericht = '" . $_POST['Bericht_tbl'] . "' WHERE id='" . $_POST['id'] . "'";
-
     $updaten = mysqli_query($con, $update);
     echo mysqli_error($con);
-
     if ($updaten == true) {
-
         echo "Dein Bericht wurde aktualisiert.";
-        die();
-
-
     } else {
         echo "Dein Bericht wurde nicht aktualisiert";
-        die();
     }
-    die();
-
-
     closeConnection($con);;
 }
 
