@@ -1,0 +1,28 @@
+<?php
+ini_set('display_errors', true);
+require_once "action.php"
+?>
+<html >
+<head>
+    <link rel="stylesheet" href="berichtsheft_css.css">
+
+</head>
+<body>
+
+
+<h2>Azubi Berichte</h2>
+
+
+<?php
+echo getBerichtsheftEinträgeAsTable();
+
+?>
+
+<ul>
+    <li> <a href="Mainpage.phtml">Zur Hauptseite zurück</a></li>
+    <li><a href="new_bericht.phtml">Einen neuen Bericht schreiben</a></li>
+    <li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
+</ul>
+
+</body>
+</html>

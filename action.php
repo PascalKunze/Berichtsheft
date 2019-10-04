@@ -16,6 +16,14 @@ if (!empty($_POST['Nachname'])) {
     }
 }
 
+if (!empty($_POST['NachnameMA'])) {
+    $NachnameMA = $_POST['NachnameMA'];
+    $VornameMA = $_POST['VornameMA'];
+
+    if (!$NachnameMA || !$VornameMA) {
+        die("Du hast eins der Felder vergessen auszufüllen!");
+    }
+}
 
 // execution of function based on button pressed
 
@@ -29,9 +37,57 @@ if (isset ($_POST['action'])) {
     if ($_POST['action'] == 'Löschen') {
         deleteEintrag();
     }
-
+    if ($_POST['action'] == 'Entfernen') {
+        deleteMA();
+    }
+    if ($_POST['action'] == 'Anlegen') {
+        saveMA();
+    }
 }
 
+
+//saves new Mitarbeiter with given Vor- und Nachname
+function saveMA()
+{
+    $con = createConnection();
+    $eintragMA = "INSERT INTO tbl_Mitarbeiter (Vorname, Nachname ) 
+    VALUES ( '" . $_POST['VornameMA'] . "','" . $_POST['NachnameMA'] . "')";
+
+    $eintragenMA = mysqli_query($con, $eintragMA);
+    echo mysqli_error($con);
+    if ($eintragenMA == true) {
+
+        echo "Der neue Mitarbeiter wurde angelegt.";
+
+    } else {
+
+        echo "Der neue Mitarbeiter wurde nicht angelegt.";
+
+    }
+
+    closeConnection($con);;
+}
+
+//deletes existing Mitarbeiter with given Vor- und Nachname
+function deleteMA()
+{
+    $con = createConnection();
+    $maid = fetchMAID2($con);
+
+    $deleteMA = "DELETE FROM tbl_Mitarbeiter WHERE id= '" . $maid['id'] . "'";
+    $deletenMA = mysqli_query($con, $deleteMA);
+    echo mysqli_error($con);
+
+    if ($deletenMA == true) {
+
+        echo "Der Mitarbeiter wurde entfert.";
+
+
+    } else {
+        echo "Der Mitarbeiter wurde nicht entfert.";
+    }
+    closeConnection($con);;
+}
 
 // creates table that shows tbl_Berichte with entities that can be edited or deleted
 function getBerichtsheftEinträgeAsTable()
@@ -85,6 +141,13 @@ function createConnection()
     return $conn;
 }
 
+function fetchMAID2($con)
+{
+    $MA_ID = "SELECT id FROM tbl_Mitarbeiter where Vorname = '" . $_POST['VornameMA'] . "' and Nachname ='" . $_POST['NachnameMA'] . "'";
+    $result_maid = mysqli_query($con, $MA_ID);
+    $maid = $result_maid->fetch_assoc();
+    return $maid;
+}
 
 //fetch mitarbeiter_ID with given Vor- and Nachname
 function fetchMAID($con)
@@ -92,7 +155,6 @@ function fetchMAID($con)
     $MA_ID = "SELECT id FROM tbl_Mitarbeiter where Vorname = '" . $_POST['Vorname'] . "' and Nachname ='" . $_POST['Nachname'] . "'";
     $result_maid = mysqli_query($con, $MA_ID);
     $maid = $result_maid->fetch_assoc();
-
     return $maid;
 }
 
