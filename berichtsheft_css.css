@@ -61,6 +61,7 @@ a {
     color: white;
     text-decoration: underline;
 }
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -96,3 +97,30 @@ li a:hover:not(.active) {
     color: white;
 }
 
+
+ul.index {
+    width: 252px;
+    position: absolute;
+    left: 42.5%;
+    bottom: 0;
+}
+
+table.one {
+    position: absolute;
+    left: 34%;
+    top: 10%;
+}
+table.two{
+    position:absolute;top:33%;left:34%;
+    width: 557px;
+
+}
+
+ul.pagination{
+    position:absolute;top:50%;left:50%
+}
+
+.pagination li{
+    float: left;
+    width: 50px;
+}

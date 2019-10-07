@@ -1,25 +1,79 @@
 <?php
 ini_set('display_errors', true);
-require_once "action.php"
+require_once "action.php";
+
+
 ?>
-<html >
+
+<html>
 <head>
     <link rel="stylesheet" href="berichtsheft_css.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 
 </head>
 <body>
 
 
 <h2>Azubi Berichte</h2>
-
-
 <?php
-echo getBerichtsheftEinträgeAsTable();
+if (isset($_GET['pageno'])) {
+    $pageno = $_GET['pageno'];
+} else {
+    $pageno = 1;
+}
+$no_of_records_per_page = 5;
+$offset = ($pageno - 1) * $no_of_records_per_page;
+
+$conn = createConnection();
+// Check connection
+if (mysqli_connect_errno()) {
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    die();
+}
+
+$total_pages_sql = "SELECT COUNT(*) FROM tbl_Berichte";
+$result = mysqli_query($conn, $total_pages_sql);
+$total_rows = mysqli_fetch_array($result)[0];
+$total_pages = ceil($total_rows / $no_of_records_per_page);
+
+$sql = "SELECT * FROM tbl_Berichte LIMIT $offset, $no_of_records_per_page";
+$res_data = mysqli_query($conn, $sql);
+echo "<table border='1px solid black;'class='one'>";
+echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th> <th>actions</th></tr>";
+while ($row = mysqli_fetch_array($res_data)) {
+    echo "<tr>
+                    <td> " . $row["mitarbeiter_id"] . "</td>
+                    <td>" . $row["Datum"] . "</td>
+                    <form action='action.php' method='post'>
+                      <td><input type='text' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> <td>
+
+                          <input type='hidden' name='id' value='" . $row["id"] . "'>
+                          <input type='submit' name='action' value='Update' >
+                          <input type='submit' name='action' value='Löschen'>
+                    </form>
+                    </td>
+                </tr>";
+}
+mysqli_close($conn);
 
 ?>
+<table class="two">
+<tr class="pagination">
+    <td><a href="?pageno=1">First</a></td>
+    <td class="<?php if ($pageno <= 1) {echo 'disabled';} ?>">
+        <a href="<?php if ($pageno <= 1) {echo '#';} else {echo "?pageno=" . ($pageno - 1);} ?>">Prev</a>
+    </td>
+    <td class="<?php if ($pageno >= $total_pages) {echo 'disabled';} ?>">
+        <a href="<?php if ($pageno >= $total_pages) {echo '#';} else {echo "?pageno=" . ($pageno + 1);} ?>">Next</a>
+    </td>
+    <td><a href="?pageno=<?php echo $total_pages; ?>">Last</a></td>
+</tr>
+</tableclass>
 
-<ul>
-    <li> <a href="Mainpage.phtml">Zur Hauptseite zurück</a></li>
+<ul class="index">
+    <li><a href="Mainpage.phtml">Zur Hauptseite zurück</a></li>
     <li><a href="new_bericht.phtml">Einen neuen Bericht schreiben</a></li>
     <li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
 </ul>
