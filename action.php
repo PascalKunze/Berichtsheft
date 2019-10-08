@@ -103,7 +103,8 @@ function getBerichtsheftEinträgeAsTable()
                     <td> " . $row["mitarbeiter_id"] . "</td>
                     <td>" . $row["Datum"] . "</td>
                     <form action='action.php' method='post'>
-                      <td><input type='text' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> <td>
+                      <td><input type='text' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> 
+                      <td>
 
                           <input type='hidden' name='id' value='" . $row["id"] . "'>
                           <input type='submit' name='action' value='Update' >
@@ -209,6 +210,7 @@ function deleteEintrag()
 
     closeConnection($con);;
 }
+
 
 // updates an entry from table
 

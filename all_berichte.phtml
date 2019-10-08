@@ -12,11 +12,13 @@ require_once "action.php";
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-</head>
+
 <body>
 
 
 <h2>Azubi Berichte</h2>
+
+
 <?php
 if (isset($_GET['pageno'])) {
     $pageno = $_GET['pageno'];
@@ -47,7 +49,7 @@ while ($row = mysqli_fetch_array($res_data)) {
                     <td> " . $row["mitarbeiter_id"] . "</td>
                     <td>" . $row["Datum"] . "</td>
                     <form action='action.php' method='post'>
-                      <td><input type='text' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> <td>
+                      <td><input type='textarea' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> <td>
 
                           <input type='hidden' name='id' value='" . $row["id"] . "'>
                           <input type='submit' name='action' value='Update' >
@@ -61,21 +63,26 @@ mysqli_close($conn);
 ?>
 <table class="two">
 <tr class="pagination">
-    <td><a href="?pageno=1">First</a></td>
-    <td class="<?php if ($pageno <= 1) {echo 'disabled';} ?>">
-        <a href="<?php if ($pageno <= 1) {echo '#';} else {echo "?pageno=" . ($pageno - 1);} ?>">Prev</a>
-    </td>
+
+
     <td class="<?php if ($pageno >= $total_pages) {echo 'disabled';} ?>">
         <a href="<?php if ($pageno >= $total_pages) {echo '#';} else {echo "?pageno=" . ($pageno + 1);} ?>">Next</a>
+    <td class="<?php if ($pageno <= 1) {echo 'disabled';} ?>">
+        <a href="<?php if ($pageno <= 1) {echo '#';} else {echo "?pageno=" . ($pageno - 1);} ?>">Back</a>
+    <td><a href="?pageno=1">First</a></td>
+
+    </td>
+
     </td>
     <td><a href="?pageno=<?php echo $total_pages; ?>">Last</a></td>
 </tr>
-</tableclass>
+</table>
 
 <ul class="index">
     <li><a href="Mainpage.phtml">Zur Hauptseite zurück</a></li>
     <li><a href="new_bericht.phtml">Einen neuen Bericht schreiben</a></li>
     <li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
+    <li><a href="bericht_suchen.phtml">Einen bestimmten Bericht suchen</a></li>
 </ul>
 
 </body>
