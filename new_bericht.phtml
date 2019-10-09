@@ -2,7 +2,7 @@
 ini_set('display_errors', true);
 require_once "action.php"
 ?>
-<html >
+<html>
 <head>
     <link rel="stylesheet" href="berichtsheft_css.css">
     <meta charset="utf-8">
@@ -12,12 +12,12 @@ require_once "action.php"
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $( function() {
-            $( "#datepicker" ).datepicker();
-            $( "#format" ).on( "change", function() {
-                $( "#datepicker" ).datepicker( "option", "dateFormat", $( this ).val() );
+        $(function () {
+            $("#datepicker").datepicker();
+            $("#format").on("change", function () {
+                $("#datepicker").datepicker("option", "dateFormat", $(this).val());
             });
-        } );
+        });
     </script>
 
 </head>
@@ -27,26 +27,28 @@ require_once "action.php"
 <form action="action.php" method="post">
 
 
-<h2>Azubi Berichtsheft</h2>
+    <h2>Azubi Berichtsheft</h2>
 
-<div class= "newbericht">
-    Vorname: <br><input type="text" name="Vorname">
-    <br><br>
-    Nachname:<br><input type="text" name="Nachname">
-    <br><br>
-    Datum :<br><input type="text" name="Datum" id="datepicker" value=".">
-    <br><br>
-    <p>Format options:<br>
-<select id="format">
-    <option value="mm/dd/yy">Default - mm/dd/yy</option>
-    <option value="yy-mm-dd">ISO 8601 - yy-mm-dd</option>
-<option value="d M, y">Short - d M, y</option>
-<option value="d MM, y">Medium - d MM, y</option>
-<option value="DD, d MM, yy">Full - DD, d MM, yy</option>
-<option value="&apos;day&apos; d &apos;of&apos; MM &apos;in the year&apos; yy">With text - 'day' d 'of' MM 'in the year' yy</option>
-</select>
-</p>
-</div>
+    <div class="newbericht">
+        Vorname: <br><input type="text" name="Vorname">
+        <br><br>
+        Nachname:<br><input type="text" name="Nachname">
+        <br><br>
+        Datum :<br><input type="text" name="Datum" id="datepicker" value=".">
+        <br><br>
+        <p>Format options:<br>
+            <select id="format">
+                <option value="mm/dd/yy">Default - mm/dd/yy</option>
+                <option value="yy-mm-dd">ISO 8601 - yy-mm-dd</option>
+                <option value="d M, y">Short - d M, y</option>
+                <option value="d MM, y">Medium - d MM, y</option>
+                <option value="DD, d MM, yy">Full - DD, d MM, yy</option>
+                <option value="&apos;day&apos; d &apos;of&apos; MM &apos;in the year&apos; yy">With text - 'day' d 'of'
+                    MM 'in the year' yy
+                </option>
+            </select>
+        </p>
+    </div>
 
     Bericht: <br><textarea name="Bericht" rows="5" cols="40"></textarea>
     <br><br>
@@ -54,13 +56,12 @@ require_once "action.php"
 </form>
 
 
-
-
 <ul class="index">
-<li><a href="Mainpage.phtml">Zur Hauptseite zurück</a></li>
-<li><a href="all_berichte.phtml">Überblick über alle Berichte</a></li>
-<li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
-<li><a href="bericht_suchen.phtml">Einen bestimmten Bericht suchen</a></li>
+    <li><a href="Mainpage.phtml">Zur Hauptseite zurück</a></li>
+    <li><a href="all_berichte.phtml">Überblick über alle Berichte</a></li>
+    <li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
+    <li><a href="bericht_suchen.phtml">Einen bestimmten Bericht suchen</a></li>
+
 </ul>
 
 </body>

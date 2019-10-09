@@ -15,7 +15,7 @@ require_once "action.php";
 <body>
 
 
-<h2>test</h2>
+<h2>Alle Berichte</h2>
 
 <?php
 // connect to database
@@ -75,11 +75,14 @@ while ($row = mysqli_fetch_array($result)) {
     <tr>
 
         <td class="<?php if ($page >= $number_of_pages) {echo 'disabled';} ?>">
-            <a href="<?php if ($page >= $number_of_pages) {echo '#';} else {echo "?page=" . ($page + 1);} ?>">Next</a>
+            <a href="<?php if ($page >= $number_of_pages) {echo '#';} else {echo "?page=" . ($page + 1);} ?>">Next</a></td>
         <td class="<?php if ($page <= 1) {echo 'disabled';} ?>">
-            <a href="<?php if ($page <= 1) {echo '#';} else {echo "?page=" . ($page - 1);} ?>">Back</a>
+            <a href="<?php if ($page <= 1) {echo '#';} else {echo "?page=" . ($page - 1);} ?>">Back</a></td>
         <td><a href="?page=1">First</a></td>
         <td><a href="?page=<?php echo $number_of_pages; ?>">Last</a></td>
+    </tr>
+    <tr>
+        <td><a>Seite: <?php echo "$page" ?></a></td>
     </tr>
 </table>
 </form>

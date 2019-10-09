@@ -3,24 +3,23 @@
 ini_set('display_errors', true);
 ini_set('default_charset', 'UTF-8');
 
-
 if (!empty($_POST['Nachname'])) {
-    $Nachname = $_POST['Nachname'];
-    $Bericht = $_POST['Bericht'];
-    $Datum = $_POST['Datum'];
-    $Vorname = $_POST['Vorname'];
-    $Bericht = $_POST['Bericht'];
+    $nachname = $_POST['Nachname'];
+    $vorname = $_POST['Vorname'];
+    $bericht = $_POST['Bericht'];
+    $datum = $_POST['Datum'];
 
-    if (!$Bericht || !$Datum || !$Nachname || !$Vorname) {
-        die("Du hast eins der Felder vergessen auszufüllen!");
-    }
+if ( !$datum || !$bericht || !$vorname || !$nachname) {
+    die("Du hast eins der Felder vergessen auszufüllen!");
+}
 }
 
-if (!empty($_POST['NachnameMA'])) {
-    $NachnameMA = $_POST['NachnameMA'];
-    $VornameMA = $_POST['VornameMA'];
 
-    if (!$NachnameMA || !$VornameMA) {
+if (!empty($_POST['NachnameMA'])) {
+    $nachnameMA = $_POST['NachnameMA'];
+    $vornameMA = $_POST['VornameMA'];
+
+    if (!$nachnameMA || !$vornameMA) {
         die("Du hast eins der Felder vergessen auszufüllen!");
     }
 }
@@ -43,6 +42,8 @@ if (isset ($_POST['action'])) {
     if ($_POST['action'] == 'Anlegen') {
         saveMA();
     }
+
+
 }
 
 
@@ -65,7 +66,7 @@ function saveMA()
 
     }
 
-    closeConnection($con);;
+    closeConnection($con);
 }
 
 //deletes existing Mitarbeiter with given Vor- und Nachname
@@ -86,11 +87,11 @@ function deleteMA()
     } else {
         echo "Der Mitarbeiter wurde nicht entfert.";
     }
-    closeConnection($con);;
+    closeConnection($con);
 }
 
 // creates table that shows tbl_Berichte with entities that can be edited or deleted
-function getBerichtsheftEinträgeAsTable()
+/*function getBerichtsheftEinträgeAsTable()
 {
     $con = createConnection();
     $sql = "SELECT id, mitarbeiter_id, Bericht, Datum FROM tbl_Berichte";
@@ -119,6 +120,8 @@ function getBerichtsheftEinträgeAsTable()
     }
     closeConnection($con);
 }
+*/
+
 
 // closes connection to database
 function closeConnection($con)
@@ -183,7 +186,7 @@ function createEintrag()
 
     }
 
-    closeConnection($con);;
+    closeConnection($con);
 }
 
 // deletes an entry from table
@@ -208,7 +211,7 @@ function deleteEintrag()
     }
 
 
-    closeConnection($con);;
+    closeConnection($con);
 }
 
 
@@ -225,7 +228,7 @@ function updateEintrag()
     } else {
         echo "Dein Bericht wurde nicht aktualisiert";
     }
-    closeConnection($con);;
+    closeConnection($con);
 }
 
 

@@ -28,7 +28,7 @@ if (isset($_POST['search'])) {
     $valueToSearch = $_POST['Datum'];
     // search in all table columns
     // using concat mysql function
-    $query = "SELECT * FROM tbl_Berichte WHERE CONCAT(`Datum`) LIKE '" . $valueToSearch . "'";
+    $query = "SELECT * FROM tbl_Berichte WHERE CONCAT(`Datum`)  LIKE '" . $valueToSearch . "'";
     $search_result = filterTable($query);
 
 } else {
@@ -64,27 +64,25 @@ createConnection();
     </p>
     <input type="submit" name="search" value="Filter"><br><br>
     <table>
-        <tr>
-            <th>Mitarbeiter</th>
-            <th>Datum</th>
-            <th>Bericht</th>
-            <th>Funktion</th>
-        </tr>
-        <?php while ($row = mysqli_fetch_array($search_result)): ?>
-        <tr>
-            <td><?php echo $row['mitarbeiter_id']; ?></td>
-            <td><?php echo $row['Datum']; ?></td>
-            <td><input type='textarea' name='Bericht_tbl' value= <?php echo $row['Bericht']; ?>></td>
-            <td>
-                <form action="action.php" method="post">
-                <input type='hidden' name='id' value=<?php echo $row['id']; ?>>
-                <input type='submit' name='action' value='Update'>
-                <input type='submit' name='action' value='Löschen'>
-                </form>
-            </td>
 
-</tr>
-<?php endwhile;?>
+        <?php echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th> <th>actions</th></tr> ";
+        while ($row = mysqli_fetch_array($search_result)) {
+            echo "<tr>
+                    <td> " . $row["mitarbeiter_id"] . "</td>
+                    <td>" . $row["Datum"] . "</td>
+                    <form action='action.php' method='post'>
+                      <td><input type='textarea' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> <td>
+
+                          <input type='hidden' name='id' value='" . $row["id"] . "'>
+                          <input type='submit' name='action' value='Update' >
+                          <input type='submit' name='action' value='Löschen'>
+                    </form>
+                    </td>
+                </tr>";
+
+        }
+
+        ?>
 </table>
 
 
@@ -95,6 +93,7 @@ createConnection();
     <li><a href="new_bericht.phtml">Einen neuen Bericht schreiben</a></li>
     <li><a href="all_berichte.phtml">Überblick über alle Berichte</a></li>
     <li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
+
 
 </ul>
 </body>
