@@ -50,6 +50,7 @@ $this_page_first_result = ($page - 1) * $results_per_page;
 
 // selected results are displayed on page in table
 $sql = 'SELECT * FROM tbl_Berichte ORDER BY Datum DESC LIMIT ' . $this_page_first_result . ',' . $results_per_page;
+
 $result = mysqli_query($con, $sql);
 echo "<table border='1px solid black;'class='one'>";
 echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th> <th>actions</th></tr> ";
@@ -61,8 +62,8 @@ while ($row = mysqli_fetch_array($result)) {
                       <td><input type='textarea' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> <td>
 
                           <input type='hidden' name='id' value='" . $row["id"] . "'>
-                          <input type='submit' name='action' value='Update' >
-                          <input type='submit' name='action' value='Löschen'>
+                          <input type='submit' name='action' value='Update' class='btn-gradient red small\'>
+                          <input type='submit' name='action' value='Löschen' class='btn-gradient red small'>
                     </form>
                     </td>
                 </tr>";

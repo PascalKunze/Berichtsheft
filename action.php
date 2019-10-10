@@ -3,6 +3,9 @@
 ini_set('display_errors', true);
 ini_set('default_charset', 'UTF-8');
 
+
+
+
 if (!empty($_POST['Nachname'])) {
     $nachname = $_POST['Nachname'];
     $vorname = $_POST['Vorname'];
@@ -168,8 +171,9 @@ function createEintrag()
 {
     $con = createConnection();
     $maid = fetchMAID($con);
+    $date=new DateTime($_POST['Datum']);
     $eintrag = "INSERT INTO tbl_Berichte (mitarbeiter_id, Bericht, Datum) 
-    VALUES ( '" . $maid['id'] . "','" . $_POST['Bericht'] . "','" . $_POST['Datum'] . "')";
+    VALUES ( '" . $maid['id'] . "','" . $_POST['Bericht'] . "','" . $date->format('Y-m-d') . "')";
 
 
     $eintragen = mysqli_query($con, $eintrag);

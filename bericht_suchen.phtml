@@ -62,7 +62,7 @@ createConnection();
             </option>
         </select>
     </p>
-    <input type="submit" name="search" value="Filter"><br><br>
+    <input type="submit" name="search" value="Filter" class="btn-gradient red small"><br><br>
     <table>
 
         <?php echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th> <th>actions</th></tr> ";
@@ -74,8 +74,8 @@ createConnection();
                       <td><input type='textarea' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> <td>
 
                           <input type='hidden' name='id' value='" . $row["id"] . "'>
-                          <input type='submit' name='action' value='Update' >
-                          <input type='submit' name='action' value='Löschen'>
+                          <input type='submit' name='action' value='Update' class='btn-gradient red small'>
+                          <input type='submit' name='action' value='Löschen' class='btn-gradient red small'>
                     </form>
                     </td>
                 </tr>";
