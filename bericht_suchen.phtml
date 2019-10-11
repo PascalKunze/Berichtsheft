@@ -5,6 +5,7 @@ require_once "action.php"
 <html>
 <head>
     <link rel="stylesheet" href="berichtsheft_css.css">
+    <link rel="stylesheet" media="print" href="print.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -22,6 +23,7 @@ require_once "action.php"
 
 </head>
 <body>
+<form action="bericht_drucken.phtml" form="post">
 <?php
 
 if (isset($_POST['search'])) {
@@ -45,10 +47,11 @@ function filterTable($query)
 }
 createConnection();
 ?>
+</form>
 <h2>Bericht suche</h2>
 <form action="bericht_suchen.phtml" method="post">
 
-    Datum :<br><input type="text" name="Datum" id="datepicker" value=".">
+    <p>Datum :</p><br><input type="text" name="Datum" id="datepicker" value=".">
     <br><br>
     <p>Format options:<br>
         <select id="format">
@@ -63,16 +66,16 @@ createConnection();
         </select>
     </p>
     <input type="submit" name="search" value="Filter" class="btn-gradient red small"><br><br>
-    <table>
+    <table class="bericht_drucken">
 
-        <?php echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th> <th>actions</th></tr> ";
+        <?php echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th> <th class='not_needed'>actions</th></tr> ";
         while ($row = mysqli_fetch_array($search_result)) {
             echo "<tr>
                     <td> " . $row["mitarbeiter_id"] . "</td>
                     <td>" . $row["Datum"] . "</td>
                     <form action='action.php' method='post'>
-                      <td><input type='textarea' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> <td>
-
+                      <td><input type='textarea' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> 
+                      <td class='not_needed'>
                           <input type='hidden' name='id' value='" . $row["id"] . "'>
                           <input type='submit' name='action' value='Update' class='btn-gradient red small'>
                           <input type='submit' name='action' value='Löschen' class='btn-gradient red small'>
@@ -80,10 +83,19 @@ createConnection();
                     </td>
                 </tr>";
 
+
         }
 
         ?>
 </table>
+
+    <button onclick="myFunction()">Print this page</button>
+
+    <script>
+        function myFunction() {
+            window.print();
+        }
+    </script>
 
 
 </form>

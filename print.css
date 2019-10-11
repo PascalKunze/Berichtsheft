@@ -1,0 +1,51 @@
+@media screen {
+    h1 {
+        text-align: right;
+        border-bottom: 3px dashed #00f;
+        color: #008;
+        background-color: inherit;
+    }
+}
+
+@media print {
+    h2 {
+        display: none;
+    }
+
+    input[type=text] {
+        display: none;
+    }
+
+    input[type=submit] {
+        display: none;
+    }
+
+    button {
+        display: none;
+    }
+
+    p {
+        display: none;
+    }
+
+    .index {
+        display: none;
+    }
+
+    .not_needed {
+        display: none;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    input[type=textarea] {
+        width: 100%;
+    }
+
+}

@@ -50,6 +50,7 @@ if (isset ($_POST['action'])) {
 }
 
 
+
 //saves new Mitarbeiter with given Vor- und Nachname
 function saveMA()
 {
