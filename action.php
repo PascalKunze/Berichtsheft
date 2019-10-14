@@ -6,31 +6,21 @@ ini_set('default_charset', 'UTF-8');
 
 
 
-if (!empty($_POST['Nachname'])) {
-    $nachname = $_POST['Nachname'];
-    $vorname = $_POST['Vorname'];
-    $bericht = $_POST['Bericht'];
-    $datum = $_POST['Datum'];
-
-if ( !$datum || !$bericht || !$vorname || !$nachname) {
-    die("Du hast eins der Felder vergessen auszufüllen!");
-}
-}
 
 
-if (!empty($_POST['NachnameMA'])) {
-    $nachnameMA = $_POST['NachnameMA'];
-    $vornameMA = $_POST['VornameMA'];
-
-    if (!$nachnameMA || !$vornameMA) {
-        die("Du hast eins der Felder vergessen auszufüllen!");
-    }
-}
 
 // execution of function based on button pressed
 
 if (isset ($_POST['action'])) {
     if ($_POST['action'] == 'Speichern') {
+        $nachname = $_POST['Nachname'];
+        $vorname = $_POST['Vorname'];
+        $bericht = $_POST['Bericht'];
+        $datum = $_POST['Datum'];
+
+        if ( !$datum || !$bericht || !$vorname || !$nachname || !$datum) {
+            die("Du hast eins der Felder vergessen auszufüllen!");
+        }
         createEintrag();
     }
     if ($_POST['action'] == 'Update') {
@@ -40,9 +30,21 @@ if (isset ($_POST['action'])) {
         deleteEintrag();
     }
     if ($_POST['action'] == 'Entfernen') {
+        $nachnameMA = $_POST['NachnameMA'];
+        $vornameMA = $_POST['VornameMA'];
+
+        if (!$nachnameMA || !$vornameMA) {
+            die("Du hast eins der Felder vergessen auszufüllen!");
+        }
         deleteMA();
     }
     if ($_POST['action'] == 'Anlegen') {
+        $nachnameMA = $_POST['NachnameMA'];
+        $vornameMA = $_POST['VornameMA'];
+
+        if (!$nachnameMA || !$vornameMA) {
+            die("Du hast eins der Felder vergessen auszufüllen!");
+        }
         saveMA();
     }
 

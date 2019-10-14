@@ -8,44 +8,37 @@
 }
 
 @media print {
-    h2 {
+    h2, input[type=text], input[type=submit], button, p, .index, .not_needed, .print_btn {
         display: none;
     }
 
-    input[type=text] {
-        display: none;
-    }
-
-    input[type=submit] {
-        display: none;
-    }
-
-    button {
-        display: none;
-    }
-
-    p {
-        display: none;
-    }
-
-    .index {
-        display: none;
-    }
-
-    .not_needed {
-        display: none;
-    }
 
     table {
         width: 100%;
+        page-break-inside: auto;
     }
 
     td {
+        page-break-inside: auto;
         text-align: center;
     }
 
     input[type=textarea] {
+        page-break-inside: auto;
         width: 100%;
+    }
+    .entry:after {
+        content: "Test";
+        color: #999 !important;
+        font-size: 1em;
+        padding-top: 30px;
     }
 
 }
+
+@media print {
+    body:before{
+        content:  "Test" ;
+    }
+}
+

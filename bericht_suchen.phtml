@@ -19,6 +19,12 @@ require_once "action.php"
                 $("#datepicker").datepicker("option", "dateFormat", $(this).val());
             });
         });
+        $(function () {
+            $("#datepickerTwo").datepicker();
+            $("#format").on("change", function () {
+                $("#datepickerTwo").datepicker("option", "dateFormat", $(this).val());
+            });
+        });
     </script>
 
 </head>
@@ -28,9 +34,10 @@ require_once "action.php"
 
 if (isset($_POST['search'])) {
     $valueToSearch = $_POST['Datum'];
+    $valueToSearchTwo = $_POST['DatumTwo'];
     // search in all table columns
     // using concat mysql function
-    $query = "SELECT * FROM tbl_Berichte WHERE CONCAT(`Datum`)  LIKE '" . $valueToSearch . "'";
+    $query = "SELECT * FROM tbl_Berichte WHERE Datum BETWEEN '" . $valueToSearch . "' AND '" . $valueToSearchTwo . "' ORDER BY Datum DESC ";
     $search_result = filterTable($query);
 
 } else {
@@ -51,8 +58,9 @@ createConnection();
 <h2>Bericht suche</h2>
 <form action="bericht_suchen.phtml" method="post">
 
-    <p>Datum :</p><br><input type="text" name="Datum" id="datepicker" value=".">
-    <br><br>
+    <p>Von:</p><input type="text" name="Datum" id="datepicker" value="."><br><br>
+    <p>Bis:</p><input type="text" name="DatumTwo" id="datepickerTwo" value=".">
+    <br>
     <p>Format options:<br>
         <select id="format">
             <option value="mm/dd/yy">Default - mm/dd/yy</option>
@@ -64,6 +72,9 @@ createConnection();
                 'in the year' yy
             </option>
         </select>
+    </p>
+    <br>
+
     </p>
     <input type="submit" name="search" value="Filter" class="btn-gradient red small"><br><br>
     <table class="bericht_drucken">
@@ -89,7 +100,7 @@ createConnection();
         ?>
 </table>
 
-    <button onclick="myFunction()">Print this page</button>
+    <button onclick="myFunction()" class="print_btn">Print this page</button>
 
     <script>
         function myFunction() {
