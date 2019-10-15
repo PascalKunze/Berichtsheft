@@ -5,6 +5,7 @@
         color: #008;
         background-color: inherit;
     }
+
 }
 
 @media print {
@@ -12,14 +13,17 @@
         display: none;
     }
 
+    .signed, .header_print {
+        display: block;
+    }
 
     table {
         width: 100%;
-        page-break-inside: auto;
+
     }
 
     td {
-        page-break-inside: auto;
+
         text-align: center;
     }
 
@@ -27,6 +31,7 @@
         page-break-inside: auto;
         width: 100%;
     }
+
     .entry:after {
         content: "Test";
         color: #999 !important;
@@ -34,11 +39,12 @@
         padding-top: 30px;
     }
 
+    tr {
+        page-break-inside: avoid;
+    }
+
+
 }
 
-@media print {
-    body:before{
-        content:  "Test" ;
-    }
-}
+
 

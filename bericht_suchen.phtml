@@ -13,31 +13,27 @@ require_once "action.php"
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+
         $(function () {
-            $("#datepicker").datepicker();
-            $("#format").on("change", function () {
-                $("#datepicker").datepicker("option", "dateFormat", $(this).val());
-            });
+
+            $("#datepickerFrom").datepicker({ dateFormat: "dd.mm.yy"});
+            $("#datepickerTo").datepicker({ dateFormat: "dd.mm.yy"});
         });
-        $(function () {
-            $("#datepickerTwo").datepicker();
-            $("#format").on("change", function () {
-                $("#datepickerTwo").datepicker("option", "dateFormat", $(this).val());
-            });
-        });
+
+
+
     </script>
 
 </head>
 <body>
 <form action="bericht_drucken.phtml" form="post">
 <?php
-
 if (isset($_POST['search'])) {
-    $valueToSearch = $_POST['Datum'];
-    $valueToSearchTwo = $_POST['DatumTwo'];
+    $valueToSearchDateTime = new DateTime($_POST['DatumFrom']);
+    $valueToSearchToDateTime = new DateTime($_POST['DatumTo']);
     // search in all table columns
     // using concat mysql function
-    $query = "SELECT * FROM tbl_Berichte WHERE Datum BETWEEN '" . $valueToSearch . "' AND '" . $valueToSearchTwo . "' ORDER BY Datum DESC ";
+    $query = "SELECT * FROM tbl_Berichte WHERE Datum BETWEEN '" . $valueToSearchDateTime->format('Y-m-d') . "' AND '" . $valueToSearchToDateTime->format('Y-m-d') . "'  ORDER BY Datum ASC ";
     $search_result = filterTable($query);
 
 } else {
@@ -48,35 +44,37 @@ if (isset($_POST['search'])) {
 // function to connect and execute the query
 function filterTable($query)
 {
-    $connect = mysqli_connect("localhost", "Pascal", "Pascalstanley03", "Berichtsheft");
+    $connect = createConnection();
     $filter_Result = mysqli_query($connect, $query);
     return $filter_Result;
 }
-createConnection();
+//dropdown functions----------------------------------
+$connect = createConnection();
+$query1 = "SELECT id FROM tbl_Mitarbeiter";
+$result1 = mysqli_query($connect, $query1);
+
 ?>
+    <p class="header_print">Azubiberichte</p>
 </form>
 <h2>Bericht suche</h2>
 <form action="bericht_suchen.phtml" method="post">
 
-    <p>Von:</p><input type="text" name="Datum" id="datepicker" value="."><br><br>
-    <p>Bis:</p><input type="text" name="DatumTwo" id="datepickerTwo" value=".">
+    <p>Von:</p><input type="text" name="DatumFrom" id="datepickerFrom" value="."></p>
+    <p>Bis:</p><input type="text" name="DatumTo" id="datepickerTo" value="."></p>
+    <p>Welcher Azubi:</p><br>
+    <select>
+        <?php while($row1 = mysqli_fetch_array($result1)):;?>
+
+            <option value="<?php echo $row1[0];?>"><?php echo $row1[1];?></option>
+
+        <?php endwhile;?>
+    </select>
+
     <br>
-    <p>Format options:<br>
-        <select id="format">
-            <option value="mm/dd/yy">Default - mm/dd/yy</option>
-            <option value="yy-mm-dd">ISO 8601 - yy-mm-dd</option>
-            <option value="d M, y">Short - d M, y</option>
-            <option value="d MM, y">Medium - d MM, y</option>
-            <option value="DD, d MM, yy">Full - DD, d MM, yy</option>
-            <option value="&apos;day&apos; d &apos;of&apos; MM &apos;in the year&apos; yy">With text - 'day' d 'of' MM
-                'in the year' yy
-            </option>
-        </select>
-    </p>
     <br>
 
-    </p>
     <input type="submit" name="search" value="Filter" class="btn-gradient red small"><br><br>
+</form>
     <table class="bericht_drucken">
 
         <?php echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th> <th class='not_needed'>actions</th></tr> ";
@@ -107,8 +105,8 @@ createConnection();
             window.print();
         }
     </script>
-
-
+<p class="signed">Unterschrift des Azubis:_______________________________</p>
+<p class="signed">Unterschrift des Auaszubildenen :_______________________________</p>
 </form>
 
 <ul class="index">

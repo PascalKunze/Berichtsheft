@@ -12,7 +12,17 @@ require_once "action.php"
 </head>
 <body>
 <h2>Mainpage</h2>
-
+<?php
+//--
+$hostname = "localhost";
+$username = "Pascal";
+$password = "Pascalstanley03";
+$databaseName = "Berichtsheft";
+//--
+$connect = mysqli_connect($hostname, $username, $password, $databaseName);
+//--
+$query = "SELECT * FROM tbl_Mitarbeiter";
+?>
 
 <ul class="index">
     <li><a href="new_bericht.phtml">Einen neuen Bericht schreiben</a></li>
