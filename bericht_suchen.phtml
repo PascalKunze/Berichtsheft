@@ -16,10 +16,9 @@ require_once "action.php"
 
         $(function () {
 
-            $("#datepickerFrom").datepicker({ dateFormat: "dd.mm.yy"});
-            $("#datepickerTo").datepicker({ dateFormat: "dd.mm.yy"});
+            $("#datepickerFrom").datepicker({dateFormat: "dd.mm.yy"});
+            $("#datepickerTo").datepicker({dateFormat: "dd.mm.yy"});
         });
-
 
 
     </script>
@@ -27,60 +26,68 @@ require_once "action.php"
 </head>
 <body>
 <form action="bericht_drucken.phtml" form="post">
-<?php
-if (isset($_POST['search'])) {
-    $valueToSearchDateTime = new DateTime($_POST['DatumFrom']);
-    $valueToSearchToDateTime = new DateTime($_POST['DatumTo']);
-    // search in all table columns
-    // using concat mysql function
-    $query = "SELECT * FROM tbl_Berichte WHERE Datum BETWEEN '" . $valueToSearchDateTime->format('Y-m-d') . "' AND '" . $valueToSearchToDateTime->format('Y-m-d') . "'  ORDER BY Datum ASC ";
-    $search_result = filterTable($query);
+    <?php
+    if (isset($_POST['search'])) {
+        $valueToSearchDateTime = new DateTime($_POST['DatumFrom']);
+        $valueToSearchToDateTime = new DateTime($_POST['DatumTo']);
 
-} else {
-    $query = "SELECT * FROM tbl_Berichte";
-    $search_result = filterTable($query);
-}
+        // search in all table columns
+        // using concat mysql function
 
-// function to connect and execute the query
-function filterTable($query)
-{
+        $query = "SELECT * FROM tbl_Berichte WHERE Datum BETWEEN '" . $valueToSearchDateTime->format('Y-m-d') . "' 
+              AND '" . $valueToSearchToDateTime->format('Y-m-d') . "' ORDER BY Datum ASC ";
+        $search_result = filterTable($query);
+
+    } else {
+        $query = "SELECT * FROM tbl_Berichte";
+        $search_result = filterTable($query);
+    }
+
+    // function to connect and execute the query
+    function filterTable($query)
+    {
+        $connect = createConnection();
+        $filter_Result = mysqli_query($connect, $query);
+        return $filter_Result;
+    }
+
+
+    //dropdown functions----------------------------------
     $connect = createConnection();
-    $filter_Result = mysqli_query($connect, $query);
-    return $filter_Result;
-}
-//dropdown functions----------------------------------
-$connect = createConnection();
-$query1 = "SELECT id FROM tbl_Mitarbeiter";
-$result1 = mysqli_query($connect, $query1);
+    $query1 = "SELECT * FROM tbl_Mitarbeiter";
+    $result1 = mysqli_query($connect, $query1);
 
-?>
-    <p class="header_print">Azubiberichte</p>
+    ?>
 </form>
+
+<p class="header_print">Azubiberichte</p>
 <h2>Bericht suche</h2>
 <form action="bericht_suchen.phtml" method="post">
 
     <p>Von:</p><input type="text" name="DatumFrom" id="datepickerFrom" value="."></p>
     <p>Bis:</p><input type="text" name="DatumTo" id="datepickerTo" value="."></p>
-    <p>Welcher Azubi:</p><br>
-    <select>
-        <?php while($row1 = mysqli_fetch_array($result1)):;?>
+    <p>Welcher Azubi:</p>
+    <select class="searchWorker">
+        <?php while ($row1 = mysqli_fetch_array($result1)):; ?>
 
-            <option value="<?php echo $row1[0];?>"><?php echo $row1[1];?></option>
+            <option><?php echo "" . $row1["id"] . "" ?></option>
 
-        <?php endwhile;?>
+        <?php endwhile; ?>
     </select>
+
 
     <br>
     <br>
 
     <input type="submit" name="search" value="Filter" class="btn-gradient red small"><br><br>
 </form>
-    <table class="bericht_drucken">
+<table class="bericht_drucken">
 
-        <?php echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th> <th class='not_needed'>actions</th></tr> ";
-        while ($row = mysqli_fetch_array($search_result)) {
-            echo "<tr>
-                    <td> " . $row["mitarbeiter_id"] . "</td>
+
+    <?php echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th> <th class='not_needed'>actions</th></tr> ";
+    while ($row = mysqli_fetch_array($search_result)) {
+        echo "<tr>
+                    <td>" . $row["mitarbeiter_id"] . "</td>
                     <td>" . $row["Datum"] . "</td>
                     <form action='action.php' method='post'>
                       <td><input type='textarea' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> 
@@ -93,19 +100,37 @@ $result1 = mysqli_query($connect, $query1);
                 </tr>";
 
 
-        }
+    }
 
-        ?>
+    ?>
 </table>
 
-    <button onclick="myFunction()" class="print_btn">Print this page</button>
+<button onclick="myFunction()" class="print_btn">Print this page</button>
+<div class="tblPrint">
+<table>
+    <?php echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th></tr> ";
+    while ($row = mysqli_fetch_array($search_result)) {
+        echo "<tr>
+                    <td>" . $row["mitarbeiter_id"] . "</td>
+                    <td>" . $row["Datum"] . "</td>                 
+                      <td>" . $row["Bericht"] . " </td>                
+                    </td>
+                </tr>";
 
-    <script>
-        function myFunction() {
-            window.print();
-        }
-    </script>
-<p class="signed">Unterschrift des Azubis:_______________________________</p>
+
+    }
+
+    ?>
+</table>
+</div>
+<script>
+    function myFunction() {
+        window.print();
+    }
+</script>
+
+
+<p class="signed">Unterschrift des Azubis:_______________________________</p><br>
 <p class="signed">Unterschrift des Auaszubildenen :_______________________________</p>
 </form>
 
