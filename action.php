@@ -4,11 +4,6 @@ ini_set('display_errors', true);
 ini_set('default_charset', 'UTF-8');
 
 
-
-
-
-
-
 // execution of function based on button pressed
 
 if (isset ($_POST['action'])) {
@@ -18,7 +13,7 @@ if (isset ($_POST['action'])) {
         $bericht = $_POST['Bericht'];
         $datum = $_POST['Datum'];
 
-        if ( !$datum || !$bericht || !$vorname || !$nachname || !$datum) {
+        if (!$datum || !$bericht || !$vorname || !$nachname || !$datum) {
             die("Du hast eins der Felder vergessen auszufüllen!");
         }
         createEintrag();
@@ -50,7 +45,6 @@ if (isset ($_POST['action'])) {
 
 
 }
-
 
 
 //saves new Mitarbeiter with given Vor- und Nachname
@@ -174,7 +168,7 @@ function createEintrag()
 {
     $con = createConnection();
     $maid = fetchMAID($con);
-    $date=new DateTime($_POST['Datum']);
+    $date = new DateTime($_POST['Datum']);
     $eintrag = "INSERT INTO tbl_Berichte (mitarbeiter_id, Bericht, Datum) 
     VALUES ( '" . $maid['id'] . "','" . $_POST['Bericht'] . "','" . $date->format('Y-m-d') . "')";
 

@@ -11,25 +11,15 @@ require_once "action.php"
 
 </head>
 <body>
-<h2>Mainpage</h2>
-<?php
-//--
-$hostname = "localhost";
-$username = "Pascal";
-$password = "Pascalstanley03";
-$databaseName = "Berichtsheft";
-//--
-$connect = mysqli_connect($hostname, $username, $password, $databaseName);
-//--
-$query = "SELECT * FROM tbl_Mitarbeiter";
-?>
-
 <ul class="index">
-    <li><a href="new_bericht.phtml">Einen neuen Bericht schreiben</a></li>
+    <li><a href="new_bericht.phtml" class="a_index">Einen neuen Bericht schreiben</a></li>
     <li><a href="all_berichte.phtml">Überblick über alle Berichte</a></li>
     <li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
     <li><a href="bericht_suchen.phtml">Einen bestimmten Bericht suchen</a></li>
 
 </ul>
+<h2>Mainpage</h2>
+
+
 </body>
 </html>

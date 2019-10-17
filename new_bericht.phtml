@@ -14,14 +14,20 @@ require_once "action.php"
     <script>
         $(function () {
 
-            $("#datepicker").datepicker({ dateFormat: "dd.mm.yy"});
+            $("#datepicker").datepicker({dateFormat: "dd.mm.yy"});
         });
 
     </script>
 
 </head>
 <body>
+<ul class="index">
+    <li><a href="Mainpage.phtml">Zur Hauptseite zurück</a></li>
+    <li><a href="all_berichte.phtml">Überblick über alle Berichte</a></li>
+    <li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
+    <li><a href="bericht_suchen.phtml">Einen bestimmten Bericht suchen</a></li>
 
+</ul>
 
 <form action="action.php" method="post">
 
@@ -41,17 +47,9 @@ require_once "action.php"
 
     Bericht: <br><textarea name="Bericht" rows="5" cols="40" class="bericht"></textarea>
     <br><br>
-    <input type="submit" name="action" value="Speichern" class="btn-gradient red small">
+    <input type="submit" name="action" value="Speichern" class="btn">
 </form>
 
-
-<ul class="index">
-    <li><a href="Mainpage.phtml">Zur Hauptseite zurück</a></li>
-    <li><a href="all_berichte.phtml">Überblick über alle Berichte</a></li>
-    <li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
-    <li><a href="bericht_suchen.phtml">Einen bestimmten Bericht suchen</a></li>
-
-</ul>
 
 </body>
 </html>

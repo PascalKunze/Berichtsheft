@@ -9,11 +9,11 @@
 }
 
 @media print {
-    h2, input[type=text], input[type=submit], button, p, .index, .not_needed, .searchWorker, .print_btn{
+    h2, input[type=text], input[type=submit], button, p, .index, .not_needed, .searchWorker, .print_btn {
         display: none;
     }
 
-    .signed, .header_print , .tblPrint {
+    .signed, .header_print, .forPrint {
         display: block;
     }
 

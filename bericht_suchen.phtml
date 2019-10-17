@@ -25,6 +25,12 @@ require_once "action.php"
 
 </head>
 <body>
+<ul class="index">
+    <li><a href="Mainpage.phtml">Zur Hauptseite zurück</a></li>
+    <li><a href="new_bericht.phtml">Einen neuen Bericht schreiben</a></li>
+    <li><a href="all_berichte.phtml">Überblick über alle Berichte</a></li>
+    <li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
+</ul>
 <form action="bericht_drucken.phtml" form="post">
     <?php
     if (isset($_POST['search'])) {
@@ -57,6 +63,7 @@ require_once "action.php"
     $query1 = "SELECT * FROM tbl_Mitarbeiter";
     $result1 = mysqli_query($connect, $query1);
 
+
     ?>
 </form>
 
@@ -79,68 +86,42 @@ require_once "action.php"
     <br>
     <br>
 
-    <input type="submit" name="search" value="Filter" class="btn-gradient red small"><br><br>
+    <input type="submit" name="search" value="Filter" class="btn"><br><br>
 </form>
-<table class="bericht_drucken">
 
-
+<table class="tbl_html">
     <?php echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th> <th class='not_needed'>actions</th></tr> ";
     while ($row = mysqli_fetch_array($search_result)) {
         echo "<tr>
                     <td>" . $row["mitarbeiter_id"] . "</td>
                     <td>" . $row["Datum"] . "</td>
                     <form action='action.php' method='post'>
-                      <td><input type='textarea' name='Bericht_tbl' value= '" . $row["Bericht"] . "'> </td> 
+                      <td><input type='textarea' name='Bericht_tbl' value= '" . $row["Bericht"] . "' class='Bericht_tbl'> <p class='forPrint'> " . $row["Bericht"] . "</p> </td> 
                       <td class='not_needed'>
                           <input type='hidden' name='id' value='" . $row["id"] . "'>
-                          <input type='submit' name='action' value='Update' class='btn-gradient red small'>
-                          <input type='submit' name='action' value='Löschen' class='btn-gradient red small'>
+                          <input type='submit' name='action' value='Update' class='btn'>
+                          <input type='submit' name='action' value='Löschen' class='btn'>
                     </form>
                     </td>
                 </tr>";
 
-
     }
-
     ?>
 </table>
 
 <button onclick="myFunction()" class="print_btn">Print this page</button>
-<div class="tblPrint">
-<table>
-    <?php echo "<tr><th> Mitarbeiter ID</th><th> Datum </th><th>Bericht</th></tr> ";
-    while ($row = mysqli_fetch_array($search_result)) {
-        echo "<tr>
-                    <td>" . $row["mitarbeiter_id"] . "</td>
-                    <td>" . $row["Datum"] . "</td>                 
-                      <td>" . $row["Bericht"] . " </td>                
-                    </td>
-                </tr>";
+<br><br>
 
-
-    }
-
-    ?>
-</table>
-</div>
 <script>
     function myFunction() {
         window.print();
     }
 </script>
 
-
 <p class="signed">Unterschrift des Azubis:_______________________________</p><br>
 <p class="signed">Unterschrift des Auaszubildenen :_______________________________</p>
 </form>
 
-<ul class="index">
-    <li><a href="Mainpage.phtml">Zur Hauptseite zurück</a></li>
-    <li><a href="new_bericht.phtml">Einen neuen Bericht schreiben</a></li>
-    <li><a href="all_berichte.phtml">Überblick über alle Berichte</a></li>
-    <li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
 
-
-</ul>
 </body>
 </html>
