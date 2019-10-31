@@ -9,7 +9,7 @@
 }
 
 @media print {
-    h2, input[type=text], input[type=submit], button, p, .index, .not_needed, .searchWorker, .print_btn {
+    h2, input[type=text], input[type=submit], button, p, .index, .not_needed, .searchWorker, .print_btn, .Bericht_tbl {
         display: none;
     }
 
@@ -43,7 +43,13 @@
         page-break-inside: avoid;
     }
 
+    p {
+        color: black;
 
+    }
+    p, td{
+        font-size: 1.1em;
+    }
 }
 
 

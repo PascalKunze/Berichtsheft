@@ -24,12 +24,13 @@ require_once "action.php"
     </script>
 
 </head>
-<body>
+
 <ul class="index">
     <li><a href="Mainpage.phtml">Zur Hauptseite zurück</a></li>
     <li><a href="new_bericht.phtml">Einen neuen Bericht schreiben</a></li>
-    <li><a href="all_berichte.phtml">Überblick über alle Berichte</a></li>
     <li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
+    <li><a href="all_berichte.phtml">Überblick über alle Berichte</a></li>
+    <li><a href="bericht_suchen.phtml">Einen bestimmten Bericht suchen</a></li>
 </ul>
 <form action="bericht_drucken.phtml" form="post">
     <?php
@@ -67,9 +68,11 @@ require_once "action.php"
     ?>
 </form>
 
-<p class="header_print">Azubiberichte</p>
-<h2>Bericht suche</h2>
+<p class="header_print">Azubiberichte</p> 
+<h2>Bericht suchen</h2>
 <form action="bericht_suchen.phtml" method="post">
+    <br>
+    <br>
 
     <p>Von:</p><input type="text" name="DatumFrom" id="datepickerFrom" value="."></p>
     <p>Bis:</p><input type="text" name="DatumTo" id="datepickerTo" value="."></p>

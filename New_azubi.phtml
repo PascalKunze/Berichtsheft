@@ -11,19 +11,24 @@ require_once "action.php"
 <ul class="index">
     <li><a href="Mainpage.phtml">Zur Hauptseite zurück</a></li>
     <li><a href="new_bericht.phtml">Einen neuen Bericht schreiben</a></li>
+    <li><a href="New_azubi.phtml">Einen neuen Azubi/Mitarbeiter anlegen</a></li>
     <li><a href="all_berichte.phtml">Überblick über alle Berichte</a></li>
     <li><a href="bericht_suchen.phtml">Einen bestimmten Bericht suchen</a></li>
-
 </ul>
 <h2>Azubis</h2>
 
 <form action="action.php" method="post">
-
-    Vorname: <br><input type="text" name="VornameMA">
-    <br><br>
-    Nachname:<br><input type="text" name="NachnameMA">
-    <br><br>
-    <input type="submit" name="action" value="Anlegen" class="btn"> <input type="submit" name="action" value="Entfernen" class="btn"><br><br>
+    <br>
+    <br>
+    <div class="newazubi">
+        <p>Vorname:</p> <input type="text" name="VornameMA">
+        <br><br>
+        <p>Nachname:</p> <input type="text" name="NachnameMA">
+        <br><br>
+        <input type="submit" name="action" value="Anlegen" class="btn"> <input type="submit" name="action"
+                                                                               value="Entfernen" class="btn"><br><br>
+    </div>
+    >
 </form>
 
 
