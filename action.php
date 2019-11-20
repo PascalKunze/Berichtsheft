@@ -132,7 +132,7 @@ function closeConnection($con)
 // creates connection to database
 function createConnection()
 {
-    $servername = "localhost";
+    $servername = "mysql";
     $username = "Pascal";
     $password = "Pascalstanley03";
     $db = "Berichtsheft";
